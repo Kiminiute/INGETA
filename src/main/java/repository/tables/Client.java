@@ -52,4 +52,5 @@ public class Client {
     public void setJobs(Occupation jobs) {
         this.jobs = jobs;
     }
+    //safikpjadsfkladsfgkla
 }
