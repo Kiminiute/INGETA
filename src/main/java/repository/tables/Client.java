@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 public class Client {
+
     private String companyName;
     private Location location;
     private LocalDate jobStart;
