@@ -16,7 +16,7 @@ public class Project {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    darbuotojam();
+                    employee();
                     break;
                 case 2:
                     uzsakovam();
@@ -28,14 +28,22 @@ public class Project {
     }
 
 
-    private void darbuotojam() {
+    private void employee() {
         while (true) {
             System.out.println("1. Registruoti darbuotoja\n" +
                     "2. Priimti darbuotoja\n" +
                     "0. Iseiti");
             choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+//                    addEmployee();
+            }
         }
     }
+
+//    private Employee addEmployee() {
+//
+//    }
 
     private void uzsakovam() {
         while (true) {
