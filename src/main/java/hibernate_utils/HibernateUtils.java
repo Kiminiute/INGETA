@@ -6,13 +6,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
+import repository.tables.Employee;
 
 import java.util.Properties;
 
 public class HibernateUtils {
 
     private static SessionFactory sessionFactory;
-    public static SessionFactory getSessionFactory(Class useClass) {
+    public static SessionFactory getSessionFactory() {
         if(sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
@@ -21,10 +22,11 @@ public class HibernateUtils {
                 settings.put(Environment.URL, DatabaseUtils.DATABASE_HOST);
                 settings.put(Environment.USER, DatabaseUtils.DATABASE_USERNAME);
                 settings.put(Environment.PASS, DatabaseUtils.DATABASE_PASSWORD);
+                settings.put(Environment.HBM2DDL_AUTO, "create-drop");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 configuration.setProperties(settings);
-                configuration.addAnnotatedClass(useClass);
+                configuration.addAnnotatedClass(Employee.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().
                         applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);

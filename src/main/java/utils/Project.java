@@ -3,12 +3,16 @@ package utils;
 import hibernate_utils.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import repository.tables.Employee;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Project {
-    Scanner scanner = new Scanner(System.in);
+    final SessionFactory sf = HibernateUtils.getSessionFactory();
+    final Session session = sf.openSession();
+    final Scanner scanner = new Scanner(System.in);
     int choice;
 
 
@@ -42,12 +46,12 @@ public class Project {
             switch (choice) {
                 case 1:
                     addEmployee();
+                    break;
             }
         }
     }
 
     private void addEmployee() {
-//        firstName, lastName, age, location, desiredSalary
         Employee employee = new Employee();
         System.out.println("REGISTRACIJA");
         System.out.println("Darbuotojo vardas: ");
@@ -58,10 +62,9 @@ public class Project {
         employee.setAge(scanner.next());
         System.out.println("Darbuotojo pageidaujamas valandinis atlygis: ");
         employee.setDesiredSalary(scanner.nextDouble());
-        SessionFactory sf = HibernateUtils.getSessionFactory(Employee.class);
-        Session session = sf.openSession();
-        session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         session.save(employee);
+        transaction.commit();
         session.close();
     }
 
