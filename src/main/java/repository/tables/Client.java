@@ -16,6 +16,6 @@ public class Client {
     private LocalDate jobStart;
     private LocalDate jobEnd;
     private Occupation jobs;
-
+// pakeitimas
 
 }
