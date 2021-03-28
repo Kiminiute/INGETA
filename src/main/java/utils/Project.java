@@ -1,5 +1,10 @@
 package utils;
 
+import hibernate_utils.HibernateUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import repository.tables.Employee;
+
 import java.util.Scanner;
 
 public class Project {
@@ -36,14 +41,29 @@ public class Project {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-//                    addEmployee();
+                    addEmployee();
             }
         }
     }
 
-//    private Employee addEmployee() {
-//
-//    }
+    private void addEmployee() {
+//        firstName, lastName, age, location, desiredSalary
+        Employee employee = new Employee();
+        System.out.println("REGISTRACIJA");
+        System.out.println("Darbuotojo vardas: ");
+        employee.setFirstName(scanner.next());
+        System.out.println("Darbuotojo pavarde: ");
+        employee.setLastName(scanner.next());
+        System.out.println("Darbuotojo amzius YYYY-MM-DD:");
+        employee.setAge(scanner.next());
+        System.out.println("Darbuotojo pageidaujamas valandinis atlygis: ");
+        employee.setDesiredSalary(scanner.nextDouble());
+        SessionFactory sf = HibernateUtils.getSessionFactory(Employee.class);
+        Session session = sf.openSession();
+        session.beginTransaction();
+        session.save(employee);
+        session.close();
+    }
 
     private void uzsakovam() {
         while (true) {

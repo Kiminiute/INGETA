@@ -1,18 +1,31 @@
 package repository.tables;
 
 import javax.persistence.Entity;
-import java.time.LocalDate;
+import javax.persistence.Id;
 
 @Entity
 public class Employee {
+    @Id
+    private Integer employeeId;
     private String firstName;
     private String lastName;
-    private LocalDate age;
-    private Location location;
+    private String age;
     private Double desiredSalary;
-    private Occupation occupation;
     private boolean isAvailable;
 
+
+//    private Location location;
+
+//    private Occupation occupation;
+
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -30,21 +43,21 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public LocalDate getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(LocalDate age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
 
     public Double getDesiredSalary() {
         return desiredSalary;
@@ -54,13 +67,13 @@ public class Employee {
         this.desiredSalary = desiredSalary;
     }
 
-    public Occupation getOccupation() {
-        return occupation;
-    }
-
-    public void setOccupation(Occupation occupation) {
-        this.occupation = occupation;
-    }
+//    public Occupation getOccupation() {
+//        return occupation;
+//    }
+//
+//    public void setOccupation(Occupation occupation) {
+//        this.occupation = occupation;
+//    }
 
     public boolean isAvailable() {
         return isAvailable;

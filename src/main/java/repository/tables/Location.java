@@ -2,12 +2,15 @@ package repository.tables;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Location {
     @Id
     private Integer id;
     private String name;
+
+    @OneToOne
     private Coordinate coords;
 
     public Integer getId() {
