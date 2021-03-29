@@ -1,0 +1,162 @@
+Index: src/main/java/repository/tables/Occupation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository.tables;\r\n\r\nimport javax.persistence.Entity;\r\n\r\n@Entity\r\npublic class Occupation {\r\n    private String jobTitle;\r\n    private Double salary;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/repository/tables/Occupation.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/repository/tables/Occupation.java	(date 1616934089132)
+@@ -1,9 +1,35 @@
+ package repository.tables;
+ 
+-import javax.persistence.Entity;
++import org.hibernate.annotations.GenericGenerator;
++
++import javax.persistence.*;
+ 
+ @Entity
+ public class Occupation {
++    @Id
++    @GeneratedValue(strategy = GenerationType.AUTO)
++    @GenericGenerator(name="increment", strategy = "increment")
++    private Integer occupationId;
+     private String jobTitle;
+     private Double salary;
++
++    @ManyToOne
++    @JoinColumn(name = "employeeId")
++    private Employee employee;
++
++    public String getJobTitle() {
++        return jobTitle;
++    }
++
++    public void setJobTitle(String jobTitle) {
++        this.jobTitle = jobTitle;
++    }
++
++    public Double getSalary() {
++        return salary;
++    }
++
++    public void setSalary(Double salary) {
++        this.salary = salary;
++    }
+ }
+Index: src/main/java/repository/tables/Coordinate.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository.tables;\r\n\r\nimport javax.persistence.Entity;\r\n\r\n@Entity\r\npublic class Coordinate {\r\n\r\n    private Location location;\r\n    private Integer x;\r\n    private Integer y;\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/repository/tables/Coordinate.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/repository/tables/Coordinate.java	(date 1616933612957)
+@@ -1,13 +1,52 @@
+ package repository.tables;
+ 
++import org.hibernate.annotations.GenericGenerator;
++
+ import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
+ 
+ @Entity
+ public class Coordinate {
+ 
+-    private Location location;
++    @Id
++    @GeneratedValue(strategy = GenerationType.AUTO)
++    @GenericGenerator(name="increment", strategy = "increment")
++    private Integer coordinateId;
++//    private Location location;
+     private Integer x;
+     private Integer y;
+ 
++    public Integer getCoordinateId() {
++        return coordinateId;
++    }
++
++    public void setCoordinateId(Integer coordinateId) {
++        this.coordinateId = coordinateId;
++    }
+ 
++//    public Location getLocation() {
++//        return location;
++//    }
++//
++//    public void setLocation(Location location) {
++//        this.location = location;
++//    }
++
++    public Integer getX() {
++        return x;
++    }
++
++    public void setX(Integer x) {
++        this.x = x;
++    }
++
++    public Integer getY() {
++        return y;
++    }
++
++    public void setY(Integer y) {
++        this.y = y;
++    }
+ }
+Index: src/main/java/utils/Project.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package utils;\r\n\r\nimport hibernate_utils.HibernateUtils;\r\nimport org.hibernate.Session;\r\nimport org.hibernate.SessionFactory;\r\nimport org.hibernate.Transaction;\r\nimport repository.tables.Employee;\r\n\r\nimport java.util.Random;\r\nimport java.util.Scanner;\r\n\r\npublic class Project {\r\n    final SessionFactory sf = HibernateUtils.getSessionFactory();\r\n    final Session session = sf.openSession();\r\n    final Scanner scanner = new Scanner(System.in);\r\n    int choice;\r\n\r\n\r\n    public void startApp() {\r\n        while (true) {\r\n            System.out.println(\"Sveiki atvykę į įdarbinimo agentūrą\\n\" +\r\n                    \"1. Darbuotojam.\\n\" +\r\n                    \"2. Užsakovams\\n\" +\r\n                    \"0. Iseiti\");\r\n            choice = scanner.nextInt();\r\n            switch (choice) {\r\n                case 1:\r\n                    employee();\r\n                    break;\r\n                case 2:\r\n                    uzsakovam();\r\n                    break;\r\n                case 0:\r\n                    break;\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    private void employee() {\r\n        while (true) {\r\n            System.out.println(\"1. Registruoti darbuotoja\\n\" +\r\n                    \"2. Priimti darbuotoja\\n\" +\r\n                    \"0. Iseiti\");\r\n            choice = scanner.nextInt();\r\n            switch (choice) {\r\n                case 1:\r\n                    addEmployee();\r\n                    break;\r\n            }\r\n        }\r\n    }\r\n\r\n    private void addEmployee() {\r\n        Employee employee = new Employee();\r\n        System.out.println(\"REGISTRACIJA\");\r\n        System.out.println(\"Darbuotojo vardas: \");\r\n        employee.setFirstName(scanner.next());\r\n        System.out.println(\"Darbuotojo pavarde: \");\r\n        employee.setLastName(scanner.next());\r\n        System.out.println(\"Darbuotojo amzius YYYY-MM-DD:\");\r\n        employee.setAge(scanner.next());\r\n        System.out.println(\"Darbuotojo pageidaujamas valandinis atlygis: \");\r\n        employee.setDesiredSalary(scanner.nextDouble());\r\n        Transaction transaction = session.beginTransaction();\r\n        session.save(employee);\r\n        transaction.commit();\r\n        session.close();\r\n    }\r\n\r\n    private void uzsakovam() {\r\n        while (true) {\r\n            System.out.println(\"1. Prideti uzsakyma\\n\" +\r\n                    \"2. Atsaukti uzsakyma\\n\" +\r\n                    \"3. Redaguoti uzsakyma\\n\" +\r\n                    \"0. Iseiti\");\r\n            choice = scanner.nextInt();\r\n        }\r\n    }\r\n}
+===================================================================
+--- src/main/java/utils/Project.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/utils/Project.java	(date 1616936810786)
+@@ -3,15 +3,9 @@
+ import hibernate_utils.HibernateUtils;
+ import org.hibernate.Session;
+ import org.hibernate.SessionFactory;
+-import org.hibernate.Transaction;
+-import repository.tables.Employee;
+-
+-import java.util.Random;
+ import java.util.Scanner;
+ 
+ public class Project {
+-    final SessionFactory sf = HibernateUtils.getSessionFactory();
+-    final Session session = sf.openSession();
+     final Scanner scanner = new Scanner(System.in);
+     int choice;
+ 
+@@ -45,28 +39,12 @@
+             choice = scanner.nextInt();
+             switch (choice) {
+                 case 1:
+-                    addEmployee();
++                    EmployeeDao.addEmployee();
+                     break;
+             }
+         }
+     }
+ 
+-    private void addEmployee() {
+-        Employee employee = new Employee();
+-        System.out.println("REGISTRACIJA");
+-        System.out.println("Darbuotojo vardas: ");
+-        employee.setFirstName(scanner.next());
+-        System.out.println("Darbuotojo pavarde: ");
+-        employee.setLastName(scanner.next());
+-        System.out.println("Darbuotojo amzius YYYY-MM-DD:");
+-        employee.setAge(scanner.next());
+-        System.out.println("Darbuotojo pageidaujamas valandinis atlygis: ");
+-        employee.setDesiredSalary(scanner.nextDouble());
+-        Transaction transaction = session.beginTransaction();
+-        session.save(employee);
+-        transaction.commit();
+-        session.close();
+-    }
+ 
+     private void uzsakovam() {
+         while (true) {

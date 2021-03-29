@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/project" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86d15601-8289-4710-9d1b-f2e8cdb3a566" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1qNYG10AFWybHt2LBNJkzBUvwHu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="INGETA2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86d15601-8289-4710-9d1b-f2e8cdb3a566" name="Default Changelist" comment="" />
+      <created>1616921414942</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1616921414942</updated>
+    </task>
+    <task id="LOCAL−00001" summary="commit">
+      <created>1616922647107</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1616922647107</updated>
+    </task>
+    <task id="LOCAL−00002" summary="commit">
+      <created>1616922734028</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1616922734028</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/project" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit" />
+    <MESSAGE value="prideta ClientOfferedJobs klase&#10;siek tiek mappinimo" />
+    <option name="LAST_COMMIT_MESSAGE" value="prideta ClientOfferedJobs klase&#10;siek tiek mappinimo" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="845" y="403" key="#Notifications" timestamp="1617037315796">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="845" y="403" key="#Notifications/0.0.1920.1080@0.0.1920.1080" timestamp="1617037315796" />
+    <state x="765" y="224" key="#com.intellij.ide.util.MemberChooser" timestamp="1616936682327">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="765" y="224" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1616936682327" />
+    <state x="776" y="228" key="FileChooserDialogImpl" timestamp="1617035886111">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="776" y="228" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1617035886111" />
+    <state width="1182" height="296" key="GridCell.Tab.0.bottom" timestamp="1617037230576">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1182" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617037230576" />
+    <state width="1182" height="296" key="GridCell.Tab.0.center" timestamp="1617037230576">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1182" height="296" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617037230576" />
+    <state width="1182" height="296" key="GridCell.Tab.0.left" timestamp="1617037230576">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1182" height="296" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617037230576" />
+    <state width="1182" height="296" key="GridCell.Tab.0.right" timestamp="1617037230576">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1182" height="296" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617037230576" />
+    <state x="184" y="90" key="MergeDialog" timestamp="1617037116339">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="184" y="90" key="MergeDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617037116339" />
+    <state x="598" y="301" key="MultipleFileMergeDialog" timestamp="1616922969079">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="598" y="301" key="MultipleFileMergeDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1616922969079" />
+    <state x="552" y="260" key="Vcs.Push.Dialog.v2" timestamp="1617036496380">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="552" y="260" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617036496380" />
+    <state x="769" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1617037656728">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="769" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617037656728" />
+    <state x="739" y="253" key="git4idea.branch.GitSmartOperationDialog" timestamp="1617037101756">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="739" y="253" key="git4idea.branch.GitSmartOperationDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617037101756" />
+    <state x="379" y="134" key="new project wizard" timestamp="1616931401257">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="379" y="134" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1616931401257" />
+  </component>
+</project>

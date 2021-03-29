@@ -1,0 +1,403 @@
+Index: src/main/java/database_utils/DatabaseUtils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package database_utils;\r\n\r\npublic class DatabaseUtils {\r\n    public static final String DATABASE_HOST = \"jdbc:mysql://127.0.0.1:3306/agentura\";\r\n    public static final String DATABASE_USERNAME = \"root\";\r\n    public static final String DATABASE_PASSWORD = \"d2bcdfe7eb5cce76d13bb1e5add135fd\";\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/database_utils/DatabaseUtils.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/database_utils/DatabaseUtils.java	(date 1616932743457)
+@@ -3,5 +3,5 @@
+ public class DatabaseUtils {
+     public static final String DATABASE_HOST = "jdbc:mysql://127.0.0.1:3306/agentura";
+     public static final String DATABASE_USERNAME = "root";
+-    public static final String DATABASE_PASSWORD = "d2bcdfe7eb5cce76d13bb1e5add135fd";
++    public static final String DATABASE_PASSWORD = "tadassql9";
+ }
+Index: src/main/java/repository/tables/Employee.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository.tables;\r\n\r\nimport org.hibernate.annotations.GenericGenerator;\r\n\r\nimport javax.persistence.Entity;\r\nimport javax.persistence.GeneratedValue;\r\nimport javax.persistence.GenerationType;\r\nimport javax.persistence.Id;\r\n\r\n@Entity\r\npublic class Employee {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.AUTO)\r\n    @GenericGenerator(name=\"increment\", strategy = \"increment\")\r\n    private Integer employeeId;\r\n    private String firstName;\r\n    private String lastName;\r\n    private String age;\r\n    private Double desiredSalary;\r\n    private boolean isAvailable;\r\n\r\n\r\n//    private Location location;\r\n\r\n//    private Occupation occupation;\r\n\r\n\r\n    public Integer getEmployeeId() {\r\n        return employeeId;\r\n    }\r\n\r\n    public void setEmployeeId(Integer employeeId) {\r\n        this.employeeId = employeeId;\r\n    }\r\n\r\n    public String getFirstName() {\r\n        return firstName;\r\n    }\r\n\r\n    public void setFirstName(String firstName) {\r\n        this.firstName = firstName;\r\n    }\r\n\r\n    public String getLastName() {\r\n        return lastName;\r\n    }\r\n\r\n    public void setLastName(String lastName) {\r\n        this.lastName = lastName;\r\n    }\r\n\r\n    public String getAge() {\r\n        return age;\r\n    }\r\n\r\n    public void setAge(String age) {\r\n        this.age = age;\r\n    }\r\n\r\n//    public Location getLocation() {\r\n//        return location;\r\n//    }\r\n//\r\n//    public void setLocation(Location location) {\r\n//        this.location = location;\r\n//    }\r\n\r\n    public Double getDesiredSalary() {\r\n        return desiredSalary;\r\n    }\r\n\r\n    public void setDesiredSalary(Double desiredSalary) {\r\n        this.desiredSalary = desiredSalary;\r\n    }\r\n\r\n//    public Occupation getOccupation() {\r\n//        return occupation;\r\n//    }\r\n//\r\n//    public void setOccupation(Occupation occupation) {\r\n//        this.occupation = occupation;\r\n//    }\r\n\r\n    public boolean isAvailable() {\r\n        return isAvailable;\r\n    }\r\n\r\n    public void setAvailable(boolean available) {\r\n        isAvailable = available;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/repository/tables/Employee.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/repository/tables/Employee.java	(date 1616933987370)
+@@ -2,10 +2,9 @@
+ 
+ import org.hibernate.annotations.GenericGenerator;
+ 
+-import javax.persistence.Entity;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.GenerationType;
+-import javax.persistence.Id;
++import javax.persistence.*;
++import java.util.ArrayList;
++import java.util.List;
+ 
+ @Entity
+ public class Employee {
+@@ -19,10 +18,10 @@
+     private Double desiredSalary;
+     private boolean isAvailable;
+ 
+-
+ //    private Location location;
++    @OneToMany(mappedBy = "employee")
+ 
+-//    private Occupation occupation;
++    private final List<Occupation> occupations = new ArrayList<>();
+ 
+ 
+     public Integer getEmployeeId() {
+Index: src/main/java/hibernate_utils/HibernateUtils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package hibernate_utils;\r\n\r\nimport database_utils.DatabaseUtils;\r\nimport org.hibernate.SessionFactory;\r\nimport org.hibernate.boot.registry.StandardServiceRegistryBuilder;\r\nimport org.hibernate.cfg.Configuration;\r\nimport org.hibernate.cfg.Environment;\r\nimport org.hibernate.service.ServiceRegistry;\r\nimport repository.tables.Employee;\r\n\r\nimport java.util.Properties;\r\n\r\npublic class HibernateUtils {\r\n\r\n    private static SessionFactory sessionFactory;\r\n    public static SessionFactory getSessionFactory() {\r\n        if(sessionFactory == null) {\r\n            try {\r\n                Configuration configuration = new Configuration();\r\n                Properties settings = new Properties();\r\n                settings.put(Environment.DRIVER, \"com.mysql.jdbc.Driver\");\r\n                settings.put(Environment.URL, DatabaseUtils.DATABASE_HOST);\r\n                settings.put(Environment.USER, DatabaseUtils.DATABASE_USERNAME);\r\n                settings.put(Environment.PASS, DatabaseUtils.DATABASE_PASSWORD);\r\n                settings.put(Environment.HBM2DDL_AUTO, \"create-drop\");\r\n                settings.put(Environment.DIALECT, \"org.hibernate.dialect.MySQL5Dialect\");\r\n                settings.put(Environment.SHOW_SQL, \"true\");\r\n                configuration.setProperties(settings);\r\n                configuration.addAnnotatedClass(Employee.class);\r\n                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().\r\n                        applySettings(configuration.getProperties()).build();\r\n                sessionFactory = configuration.buildSessionFactory(serviceRegistry);\r\n            } catch (Exception e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n        return sessionFactory;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/hibernate_utils/HibernateUtils.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/hibernate_utils/HibernateUtils.java	(date 1616933513805)
+@@ -6,7 +6,7 @@
+ import org.hibernate.cfg.Configuration;
+ import org.hibernate.cfg.Environment;
+ import org.hibernate.service.ServiceRegistry;
+-import repository.tables.Employee;
++import repository.tables.*;
+ 
+ import java.util.Properties;
+ 
+@@ -26,7 +26,12 @@
+                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+                 settings.put(Environment.SHOW_SQL, "true");
+                 configuration.setProperties(settings);
+-                configuration.addAnnotatedClass(Employee.class);
++                configuration.addAnnotatedClass(Employee.class)
++                        .addAnnotatedClass(Coordinate.class)
++                        .addAnnotatedClass(Client.class)
++                        .addAnnotatedClass(Location.class)
++                        .addAnnotatedClass(Occupation.class)
++                        .addAnnotatedClass(WorkingEmployees.class);
+                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().
+                         applySettings(configuration.getProperties()).build();
+                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+Index: src/main/java/utils/EmployeeDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package utils;\r\n\r\npublic class EmployeeDao {\r\n\r\n    private void createEmployee() {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/utils/EmployeeDao.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/utils/EmployeeDao.java	(date 1616936810794)
+@@ -1,8 +1,34 @@
+ package utils;
+ 
++import hibernate_utils.HibernateUtils;
++import org.hibernate.Session;
++import org.hibernate.SessionFactory;
++import org.hibernate.Transaction;
++import repository.tables.Employee;
++
++import java.util.Scanner;
++
+ public class EmployeeDao {
++    static final SessionFactory sf = HibernateUtils.getSessionFactory();
++    static final Session session = sf.openSession();
++    static final Scanner scanner = new Scanner(System.in);
+ 
+-    private void createEmployee() {
+ 
++    public static  void addEmployee() {
++        Employee employee = new Employee();
++        System.out.println("REGISTRACIJA");
++        System.out.println("Darbuotojo vardas: ");
++        employee.setFirstName(scanner.next());
++        System.out.println("Darbuotojo pavarde: ");
++        employee.setLastName(scanner.next());
++        System.out.println("Darbuotojo amzius YYYY-MM-DD:");
++        employee.setAge(scanner.next());
++        System.out.println("Darbuotojo pageidaujamas valandinis atlygis: ");
++        employee.setDesiredSalary(scanner.nextDouble());
++        Transaction transaction = session.beginTransaction();
++        session.save(employee);
++
++        transaction.commit();
++        session.close();
+     }
+ }
+Index: src/main/java/repository/tables/ClientOfferedJobs.java
+===================================================================
+--- src/main/java/repository/tables/ClientOfferedJobs.java	(date 1616936810779)
++++ src/main/java/repository/tables/ClientOfferedJobs.java	(date 1616936810779)
+@@ -0,0 +1,42 @@
++package repository.tables;
++
++import org.hibernate.annotations.GenericGenerator;
++
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++
++@Entity
++public class ClientOfferedJobs {
++    @Id
++    @GeneratedValue(strategy = GenerationType.AUTO)
++    @GenericGenerator(name="increment", strategy = "increment")
++    private Integer clientJobId;
++    private String jobTitle;
++    private Double salary;
++
++    public Integer getClientJobId() {
++        return clientJobId;
++    }
++
++    public void setClientJobId(Integer clientJobId) {
++        this.clientJobId = clientJobId;
++    }
++
++    public String getJobTitle() {
++        return jobTitle;
++    }
++
++    public void setJobTitle(String jobTitle) {
++        this.jobTitle = jobTitle;
++    }
++
++    public Double getSalary() {
++        return salary;
++    }
++
++    public void setSalary(Double salary) {
++        this.salary = salary;
++    }
++}
+Index: src/main/java/utils/OccupationDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package utils;\r\n\r\npublic class OccupationDao {\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/utils/OccupationDao.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/utils/OccupationDao.java	(date 1616936810773)
+@@ -1,6 +1,18 @@
+ package utils;
+ 
++import hibernate_utils.HibernateUtils;
++import org.hibernate.Session;
++import org.hibernate.SessionFactory;
++
++import java.util.Scanner;
++
+ public class OccupationDao {
++    static final SessionFactory sf = HibernateUtils.getSessionFactory();
++    static final Session session = sf.openSession();
++    static final Scanner scanner = new Scanner(System.in);
+ 
+ 
++    public static void addOccupation() {
++
++    }
+ }
+Index: src/main/java/repository/tables/WorkingEmployees.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository.tables;\r\n\r\nimport java.time.LocalDate;\r\n\r\npublic class WorkingEmployees {\r\n    private Employee employee;\r\n    private LocalDate jobStart;\r\n    private LocalDate jobEnd;\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/repository/tables/WorkingEmployees.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/repository/tables/WorkingEmployees.java	(date 1616933612963)
+@@ -1,11 +1,42 @@
+ package repository.tables;
+ 
++import org.hibernate.annotations.GenericGenerator;
++
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
+ import java.time.LocalDate;
+ 
+ public class WorkingEmployees {
+-    private Employee employee;
++    @Id
++    @GeneratedValue(strategy = GenerationType.AUTO)
++    @GenericGenerator(name="increment", strategy = "increment")
++    private Integer wEmployeesId;
++//    private Employee employee;
+     private LocalDate jobStart;
+     private LocalDate jobEnd;
+ 
++    public Integer getwEmployeesId() {
++        return wEmployeesId;
++    }
++
++    public void setwEmployeesId(Integer wEmployeesId) {
++        this.wEmployeesId = wEmployeesId;
++    }
++
++    public LocalDate getJobStart() {
++        return jobStart;
++    }
++
++    public void setJobStart(LocalDate jobStart) {
++        this.jobStart = jobStart;
++    }
+ 
++    public LocalDate getJobEnd() {
++        return jobEnd;
++    }
++
++    public void setJobEnd(LocalDate jobEnd) {
++        this.jobEnd = jobEnd;
++    }
+ }
+Index: src/main/java/repository/tables/Client.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository.tables;\r\n\r\nimport javax.persistence.Entity;\r\nimport java.time.LocalDate;\r\n\r\n@Entity\r\npublic class Client {\r\n\r\n    private Integer id;\r\n    private String companyName;\r\n    private Location location;\r\n    private LocalDate jobStart;\r\n    private LocalDate jobEnd;\r\n    private Occupation jobs;\r\n\r\n    public String getCompanyName() {\r\n        return companyName;\r\n    }\r\n\r\n    public void setCompanyName(String companyName) {\r\n        this.companyName = companyName;\r\n    }\r\n\r\n    public Location getLocation() {\r\n        return location;\r\n    }\r\n\r\n    public void setLocation(Location location) {\r\n        this.location = location;\r\n    }\r\n\r\n    public LocalDate getJobStart() {\r\n        return jobStart;\r\n    }\r\n\r\n    public void setJobStart(LocalDate jobStart) {\r\n        this.jobStart = jobStart;\r\n    }\r\n\r\n    public LocalDate getJobEnd() {\r\n        return jobEnd;\r\n    }\r\n\r\n    public void setJobEnd(LocalDate jobEnd) {\r\n        this.jobEnd = jobEnd;\r\n    }\r\n\r\n    public Occupation getJobs() {\r\n        return jobs;\r\n    }\r\n\r\n    public void setJobs(Occupation jobs) {\r\n        this.jobs = jobs;\r\n    }\r\n    //safikpjadsfkladsfgkla\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/repository/tables/Client.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/repository/tables/Client.java	(date 1616933633203)
+@@ -1,56 +1,62 @@
+ package repository.tables;
+ 
++import org.hibernate.annotations.GenericGenerator;
++
+ import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
+ import java.time.LocalDate;
+ 
+ @Entity
+ public class Client {
+-
++    @Id
++    @GeneratedValue(strategy = GenerationType.AUTO)
++    @GenericGenerator(name="increment", strategy = "increment")
+     private Integer id;
+-    private String companyName;
+-    private Location location;
+-    private LocalDate jobStart;
+-    private LocalDate jobEnd;
+-    private Occupation jobs;
+-
+-    public String getCompanyName() {
+-        return companyName;
+-    }
+-
+-    public void setCompanyName(String companyName) {
+-        this.companyName = companyName;
+-    }
+-
+-    public Location getLocation() {
+-        return location;
+-    }
+-
+-    public void setLocation(Location location) {
+-        this.location = location;
+-    }
+-
+-    public LocalDate getJobStart() {
+-        return jobStart;
+-    }
+-
+-    public void setJobStart(LocalDate jobStart) {
+-        this.jobStart = jobStart;
+-    }
+-
+-    public LocalDate getJobEnd() {
+-        return jobEnd;
+-    }
+-
+-    public void setJobEnd(LocalDate jobEnd) {
+-        this.jobEnd = jobEnd;
+-    }
+-
+-    public Occupation getJobs() {
+-        return jobs;
+-    }
+-
+-    public void setJobs(Occupation jobs) {
+-        this.jobs = jobs;
+-    }
+-    //safikpjadsfkladsfgkla
++//    private String companyName;
++//    private Location location;
++//    private LocalDate jobStart;
++//    private LocalDate jobEnd;
++//    private Occupation jobs;
++//
++//    public String getCompanyName() {
++//        return companyName;
++//    }
++//
++//    public void setCompanyName(String companyName) {
++//        this.companyName = companyName;
++//    }
++//
++//    public Location getLocation() {
++//        return location;
++//    }
++//
++//    public void setLocation(Location location) {
++//        this.location = location;
++//    }
++//
++//    public LocalDate getJobStart() {
++//        return jobStart;
++//    }
++//
++//    public void setJobStart(LocalDate jobStart) {
++//        this.jobStart = jobStart;
++//    }
++//
++//    public LocalDate getJobEnd() {
++//        return jobEnd;
++//    }
++//
++//    public void setJobEnd(LocalDate jobEnd) {
++//        this.jobEnd = jobEnd;
++//    }
++//
++//    public Occupation getJobs() {
++//        return jobs;
++//    }
++//
++//    public void setJobs(Occupation jobs) {
++//        this.jobs = jobs;
++//    }
+ }
+Index: src/main/java/repository/tables/Location.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package repository.tables;\r\n\r\nimport javax.persistence.Entity;\r\nimport javax.persistence.Id;\r\nimport javax.persistence.OneToOne;\r\n\r\n@Entity\r\npublic class Location {\r\n    @Id\r\n    private Integer id;\r\n    private String name;\r\n\r\n    @OneToOne\r\n    private Coordinate coords;\r\n\r\n    public Integer getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(Integer id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public Coordinate getCoords() {\r\n        return coords;\r\n    }\r\n\r\n    public void setCoords(Coordinate coords) {\r\n        this.coords = coords;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/repository/tables/Location.java	(revision 33d7b157f7f871c46aa45e254681b067c19d4846)
++++ src/main/java/repository/tables/Location.java	(date 1616933612969)
+@@ -1,12 +1,14 @@
+ package repository.tables;
+ 
+-import javax.persistence.Entity;
+-import javax.persistence.Id;
+-import javax.persistence.OneToOne;
++import org.hibernate.annotations.GenericGenerator;
++
++import javax.persistence.*;
+ 
+ @Entity
+ public class Location {
+     @Id
++    @GeneratedValue(strategy = GenerationType.AUTO)
++    @GenericGenerator(name="increment", strategy = "increment")
+     private Integer id;
+     private String name;
+ 

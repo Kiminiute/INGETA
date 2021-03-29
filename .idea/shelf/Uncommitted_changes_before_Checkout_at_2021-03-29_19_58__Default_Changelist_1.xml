@@ -1,0 +1,44 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1" date="1617037116629" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2021-03-29 19:58 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/hibernate_utils/HibernateUtils.class" />
+    <option name="AFTER_PATH" value="target/classes/hibernate_utils/HibernateUtils.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/HibernateUtils.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/repository/tables/Client.class" />
+    <option name="AFTER_PATH" value="target/classes/repository/tables/Client.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/Client.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/repository/tables/Employee.class" />
+    <option name="AFTER_PATH" value="target/classes/repository/tables/Employee.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/Employee.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/repository/tables/Occupation.class" />
+    <option name="AFTER_PATH" value="target/classes/repository/tables/Occupation.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/Occupation.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/repository/tables/Location.class" />
+    <option name="AFTER_PATH" value="target/classes/repository/tables/Location.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/Location.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/repository/tables/WorkingEmployees.class" />
+    <option name="AFTER_PATH" value="target/classes/repository/tables/WorkingEmployees.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/WorkingEmployees.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/database_utils/DatabaseUtils.class" />
+    <option name="AFTER_PATH" value="target/classes/database_utils/DatabaseUtils.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/DatabaseUtils.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/repository/tables/Coordinate.class" />
+    <option name="AFTER_PATH" value="target/classes/repository/tables/Coordinate.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021-03-29_19_58_[Default_Changelist]1/Coordinate.class" />
+  </binary>
+</changelist>
