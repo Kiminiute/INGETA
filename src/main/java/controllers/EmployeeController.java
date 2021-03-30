@@ -1,4 +1,4 @@
-package repository.controllers;
+package controllers;
 
 import org.hibernate.Transaction;
 import repository.tables.Employee;
@@ -7,11 +7,11 @@ import utilities.output.OutputProducer;
 import utilities.session.SessionProducer;
 
 public class EmployeeController {
-    private final SessionProducer session = new SessionProducer();
-    private final OutputProducer out = new OutputProducer();
-    private final InputReceiver in = new InputReceiver();
+    private static final SessionProducer session = new SessionProducer();
+    private static final OutputProducer out = new OutputProducer();
+    private static final InputReceiver in = new InputReceiver();
 
-    public  void addEmployee() {
+    public static void addEmployee() {
         Employee employee = new Employee();
         out.produce("---REGISTRACIJA---");
         out.produce("Darbuotojo vardas: ");

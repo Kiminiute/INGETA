@@ -1,4 +1,4 @@
-package repository.controllers;
+package controllers;
 
 public class CoordinateController {
 

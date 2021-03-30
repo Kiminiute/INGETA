@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import java.time.LocalDate;
 
 @Entity
 public class Employee {
@@ -18,6 +23,15 @@ public class Employee {
     private String age;
     private Double desiredSalary;
     private boolean isAvailable;
+
+    @JoinTable(name = "employees_locations",
+    joinColumns = @JoinColumn(name = "employeeId"),
+    inverseJoinColumns = @JoinColumn(name = "locationId"))
+    @OneToOne(mappedBy = "employee")
+
+    private Location location;
+
+
 
 
 //    private Location location;

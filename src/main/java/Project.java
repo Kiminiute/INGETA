@@ -1,14 +1,17 @@
-package repository.controllers;
-
+import controllers.EmployeeController;
 import utilities.input.InputReceiver;
 import utilities.output.OutputProducer;
 
 
-public class ProjectController {
+
+public class Project {
     OutputProducer out = new OutputProducer();
     InputReceiver input = new InputReceiver();
     private int choice;
 
+    public Project() {
+        startApp();
+    }
 
     public void startApp() {  // First/Main screen
         while (true) {
@@ -16,28 +19,34 @@ public class ProjectController {
             choice = input.receiveLine().nextInt();
             switch (choice) {
                 case 1:
-                    employee();
+                    employeeMenu();
                     break;
                 case 2:
-                    client();
+                    clientMenu();
                     break;
                 case 0:
-                    break;
+                    return;
+                default:
+                    out.produceErr("Komanda neatpažinta");
             }
         }
     }
 
     public void printMainMenu() {
+        out.produce("=========== PAGRINDINIS ===========");
         out.produce("Sveiki atvykę į įdarbinimo agentūrą");
         out.produce("1. Darbuotojų meniu");
         out.produce("2. Užsakovų meniu");
-        out.produce("0. Išeiti");
+        out.produce("0. Baigti programą");
+        out.produce("===================================");
     }
 
     public void printEmployeeMenu() {
+        out.produce("==== Darbuotojų meniu ====");
         out.produce("1. Registuoti darbuotoją.");
         out.produce("2. Priimti darbuotoją.");
         out.produce("0. Grįžti į pagrindinį.");
+        out.produce("==========================");
     }
 
     public void printClientMenu() {
@@ -48,7 +57,7 @@ public class ProjectController {
     }
 
 
-    private void employee() {
+    private void employeeMenu() {
         while (true) {
             printEmployeeMenu();
             choice = input.receiveLine().nextInt();
@@ -56,11 +65,16 @@ public class ProjectController {
                 case 1:
                     EmployeeController.addEmployee();
                     break;
+                case 0:
+                    startApp();
+                    break;
+                default:
+                    out.produceErr("Komanda neatpažinta");
             }
         }
     }
 
-    private void client() {
+    private void clientMenu() {
         while (true) {
             printClientMenu();
             choice = input.receiveLine().nextInt();
