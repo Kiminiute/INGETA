@@ -13,8 +13,39 @@ public class Coordinate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(name="increment", strategy = "increment")
     private Integer coordinateId;
-    private Integer x;
-    private Integer y;
+    private Integer latitude;
+    private Integer longitude;
+git
+    public Coordinate() {
+    }
 
+    public Coordinate(Integer coordinateId, Integer latitude, Integer longitude) {
+        this.coordinateId = coordinateId;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
+    public Integer getCoordinateId() {
+        return coordinateId;
+    }
+
+    public void setCoordinateId(Integer coordinateId) {
+        this.coordinateId = coordinateId;
+    }
+
+    public Integer getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Integer latitude) {
+        this.latitude = latitude;
+    }
+
+    public Integer getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Integer longitude) {
+        this.longitude = longitude;
+    }
 }
