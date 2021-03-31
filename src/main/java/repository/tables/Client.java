@@ -1,7 +1,5 @@
 package repository.tables;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,13 +10,38 @@ import java.time.LocalDate;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(name="increment", strategy = "increment")
     private Integer id;
     private String companyName;
-//    private Location location;
-//    private LocalDate jobStart;
-//    private LocalDate jobEnd;
-//    private Occupation jobs;
+    private String location;
+    private LocalDate jobStart;
+    private LocalDate jobEnd;
+    private String occupation;
+    private double hourlyRate;
+
+    public Client() {
+    }
+
+    public Client(String companyName, String location, LocalDate jobStart, LocalDate jobEnd, String occupation, double hourlyRate) {
+        this.companyName = companyName;
+        this.location = location;
+        this.jobStart = jobStart;
+        this.jobEnd = jobEnd;
+        this.occupation = occupation;
+        this.hourlyRate = hourlyRate;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", location='" + location + '\'' +
+                ", jobStart=" + jobStart +
+                ", jobEnd=" + jobEnd +
+                ", occupation='" + occupation + '\'' +
+                ", hourlyRate=" + hourlyRate +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -36,35 +59,44 @@ public class Client {
         this.companyName = companyName;
     }
 
-//    public Location getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(Location location) {
-//        this.location = location;
-//    }
-//
-//    public LocalDate getJobStart() {
-//        return jobStart;
-//    }
-//
-//    public void setJobStart(LocalDate jobStart) {
-//        this.jobStart = jobStart;
-//    }
-//
-//    public LocalDate getJobEnd() {
-//        return jobEnd;
-//    }
-//
-//    public void setJobEnd(LocalDate jobEnd) {
-//        this.jobEnd = jobEnd;
-//    }
-//
-//    public Occupation getJobs() {
-//        return jobs;
-//    }
-//
-//    public void setJobs(Occupation jobs) {
-//        this.jobs = jobs;
-//    }
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public LocalDate getJobStart() {
+        return jobStart;
+    }
+
+    public void setJobStart(LocalDate jobStart) {
+        this.jobStart = jobStart;
+    }
+
+    public LocalDate getJobEnd() {
+        return jobEnd;
+    }
+
+    public void setJobEnd(LocalDate jobEnd) {
+        this.jobEnd = jobEnd;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
 }
+
