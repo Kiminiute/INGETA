@@ -15,7 +15,7 @@ public class Coordinate {
     private Integer coordinateId;
     private Integer latitude;
     private Integer longitude;
-git
+
     public Coordinate() {
     }
 

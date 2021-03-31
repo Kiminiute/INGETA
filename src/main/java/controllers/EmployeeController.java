@@ -20,8 +20,6 @@ public class EmployeeController {
         employee.setLastName(in.receiveLine().next());
         out.produce("Darbuotojo amžius YYYY-MM-DD:");
         employee.setAge(in.receiveLine().next());
-        out.produce("Darbuotojo pageidaujamas valandinis atlygis: ");
-        employee.setDesiredSalary(in.receiveLine().nextDouble());
         Transaction transaction = session.produceSession().beginTransaction();
         session.produceSession().save(employee);
         transaction.commit();

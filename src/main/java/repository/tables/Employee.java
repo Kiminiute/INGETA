@@ -7,10 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
-import java.time.LocalDate;
 
 @Entity
 public class Employee {
@@ -21,7 +19,6 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String age;
-    private Double desiredSalary;
     private boolean isAvailable;
 
     @JoinTable(name = "employees_locations",
@@ -78,14 +75,6 @@ public class Employee {
 //    public void setLocation(Location location) {
 //        this.location = location;
 //    }
-
-    public Double getDesiredSalary() {
-        return desiredSalary;
-    }
-
-    public void setDesiredSalary(Double desiredSalary) {
-        this.desiredSalary = desiredSalary;
-    }
 
 //    public Occupation getOccupation() {
 //        return occupation;
