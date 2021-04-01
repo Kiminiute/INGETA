@@ -1,13 +1,12 @@
 package controllers;
 
-import org.hibernate.Transaction;
 import repository.tables.Employee;
 import utilities.input.InputReceiver;
 import utilities.output.OutputProducer;
-import utilities.session.SessionProducer;
+import repository_utils.Repository;
 
 public class EmployeeController {
-    private static final SessionProducer session = new SessionProducer();
+    private static final Repository<Employee> repository = new Repository<>(Employee.class);
     private static final OutputProducer out = new OutputProducer();
     private static final InputReceiver in = new InputReceiver();
 
@@ -20,9 +19,6 @@ public class EmployeeController {
         employee.setLastName(in.receiveLine().next());
         out.produce("Darbuotojo amžius YYYY-MM-DD:");
         employee.setAge(in.receiveLine().next());
-        Transaction transaction = session.produceSession().beginTransaction();
-        session.produceSession().save(employee);
-        transaction.commit();
-        session.produceSession().close();
+        repository.save(employee);
     }
 }

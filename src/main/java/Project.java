@@ -4,7 +4,6 @@ import utilities.messages.Message;
 import utilities.output.OutputProducer;
 
 
-
 public class Project {
     OutputProducer out = new OutputProducer();
     InputReceiver input = new InputReceiver();

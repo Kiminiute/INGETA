@@ -19,21 +19,12 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String age;
-    private boolean isAvailable;
 
     @JoinTable(name = "employees_locations",
     joinColumns = @JoinColumn(name = "employeeId"),
     inverseJoinColumns = @JoinColumn(name = "locationId"))
-    @OneToOne(mappedBy = "employee")
-
+    @OneToOne
     private Location location;
-
-
-
-
-//    private Location location;
-
-//    private Occupation occupation;
 
 
     public Integer getEmployeeId() {
@@ -68,27 +59,14 @@ public class Employee {
         this.age = age;
     }
 
-//    public Location getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(Location location) {
-//        this.location = location;
-//    }
-
-//    public Occupation getOccupation() {
-//        return occupation;
-//    }
-//
-//    public void setOccupation(Occupation occupation) {
-//        this.occupation = occupation;
-//    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
+                ", location=" + location +
+                '}';
     }
 }
