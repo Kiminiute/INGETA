@@ -1,4 +1,6 @@
 import controllers.EmployeeController;
+import repository.tables.Employee;
+import repository_utils.Repository;
 import utilities.input.InputReceiver;
 import utilities.messages.Message;
 import utilities.output.OutputProducer;

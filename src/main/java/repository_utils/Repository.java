@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Repository<T> implements CRUDRepository<T> {
     private final SessionProducer sp = new SessionProducer();
-    private final Class<? extends T> table;
+    private final Class<T> table;
 
-    public Repository(Class<? extends T> table) {
+    public Repository(Class<T> table) {
         this.table = table;
     }
 
@@ -18,8 +18,8 @@ public class Repository<T> implements CRUDRepository<T> {
     }
 
     @Override
-    public List<T> findAll(Class<T> type) {
-        return sp.produceSession().createQuery("FROM " + type.getSimpleName(), type).getResultList();
+    public List<T> findAll() {
+        return sp.produceSession().createQuery("FROM " + table.getSimpleName(), table).getResultList();
     }
 
     @Override

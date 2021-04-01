@@ -7,7 +7,7 @@ public interface CRUDRepository<T> {
 
     T find(Integer id);
 
-    List<T> findAll(Class<T> clazz);
+    List<T> findAll();
 
     void save(T object);
 
