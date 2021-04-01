@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
+import java.time.LocalDate;
 
 @Entity
 public class Employee {
@@ -18,8 +19,58 @@ public class Employee {
     private Integer employeeId;
     private String firstName;
     private String lastName;
-    private String age;
-    private boolean isAvailable;
+    private LocalDate dateOfBirth;
+    private String occupation;
+    private int travelingDistance;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "Id=" + employeeId +
+                ", Vardas='" + firstName + '\'' +
+                ", Pavardė='" + lastName + '\'' +
+                ", Gimino Data=" + dateOfBirth +
+                ", Specialybė=" + occupation +
+                ", Keliaujamas atstumas=" + travelingDistance +
+                ", Vieta=" + location +
+                '}';
+    }
+
+    public Employee(String firstName, String lastName, LocalDate dateOfBirth, String occupation, int travelingDistance, Location location) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.occupation = occupation;
+        this.travelingDistance = travelingDistance;
+        this.location = location;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public int getTravelingDistance() {
+        return travelingDistance;
+    }
+
+    public void setTravelingDistance(int travelingDistance) {
+        this.travelingDistance = travelingDistance;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Employee() {
+    }
 
     @JoinTable(name = "employees_locations",
     joinColumns = @JoinColumn(name = "employeeId"),
@@ -60,12 +111,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public String getAge() {
-        return age;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
 //    public Location getLocation() {
@@ -84,11 +135,5 @@ public class Employee {
 //        this.occupation = occupation;
 //    }
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
 }
