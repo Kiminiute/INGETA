@@ -6,23 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name="increment", strategy = "increment")
     private Integer employeeId;
     private String firstName;
     private String lastName;
     private String age;
+    private String city;
 
-    @JoinTable(name = "employees_locations",
-    joinColumns = @JoinColumn(name = "employeeId"),
-    inverseJoinColumns = @JoinColumn(name = "locationId"))
     @OneToOne
     private Location location;
 
@@ -57,6 +54,14 @@ public class Employee {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

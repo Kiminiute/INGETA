@@ -1,17 +1,17 @@
 package controllers;
 
-import hibernate_utils.HibernateUtils;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import repository.methods.CoordinateRepository;
 import repository.tables.Employee;
 import utilities.input.InputReceiver;
+import utilities.messages.Message;
 import utilities.output.OutputProducer;
 import repository_utils.Repository;
 
-import java.util.List;
 
 public class EmployeeController {
     private static final Repository<Employee> repository = new Repository<>(Employee.class);
+    private static final Message messages = new Message();
+    private static final CoordinateRepository cr = new CoordinateRepository();
     private static final OutputProducer out = new OutputProducer();
     private static final InputReceiver in = new InputReceiver();
 
@@ -24,36 +24,19 @@ public class EmployeeController {
         employee.setLastName(in.receiveLine().next());
         out.produce("Darbuotojo amžius YYYY-MM-DD:");
         employee.setAge(in.receiveLine().next());
+        addCity(employee);
         repository.save(employee);
     }
 
-    public static Employee findEmployee(Integer id) {
-        return repository.find(id);
-    }
-
-    public static List<Employee> findAllEmployees() {
-        return repository.findAll();
-    }
-
-    public static void deleteEmployee(Employee employee) {
-        repository.delete(employee);
-    }
-
-    public static void deleteEmployeeById(Integer id) {
-        repository.delete(repository.find(id));
-    }
-
-    public static void generateEmployee(Employee employee) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(employee);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            System.err.println(ex.getMessage());
+    public static void addCity(Employee employee) {
+        out.produce("City you live in: ");
+        String city = in.receiveLine().next();
+        if(cr.isLocationValid(city)) {
+            employee.setCity(city);
+        } else {
+            out.produce("Valid cities: ");
+            messages.printCityList();
+            addCity(employee);
         }
     }
 }

@@ -23,7 +23,7 @@ public class HibernateUtils {
                 settings.put(Environment.USER, DatabaseUtils.DATABASE_USERNAME);
                 settings.put(Environment.PASS, DatabaseUtils.DATABASE_PASSWORD);
                 settings.put(Environment.HBM2DDL_AUTO, "create-drop");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL55Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Employee.class)
@@ -40,5 +40,9 @@ public class HibernateUtils {
             }
         }
         return sessionFactory;
+    }
+
+    public static void shutdown() {
+        getSessionFactory().close();
     }
 }

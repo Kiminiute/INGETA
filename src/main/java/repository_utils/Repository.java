@@ -2,13 +2,16 @@ package repository_utils;
 
 
 import org.hibernate.Transaction;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Repository<T> implements CRUDRepository<T> {
-    private final SessionProducer sp = new SessionProducer();
+public class Repository<T> implements CRUDRepository<T>, Serializable {
+    private final SessionProducer sp;
     private final Class<T> table;
 
     public Repository(Class<T> table) {
+        sp = new SessionProducer();
         this.table = table;
     }
 

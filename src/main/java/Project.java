@@ -1,60 +1,65 @@
 import controllers.EmployeeController;
-import repository.tables.Employee;
-import repository_utils.Repository;
+import hibernate_utils.HibernateUtils;
+import repository.methods.LocationRepository;
 import utilities.input.InputReceiver;
 import utilities.messages.Message;
 import utilities.output.OutputProducer;
 
 
 public class Project {
-    OutputProducer out = new OutputProducer();
-    InputReceiver input = new InputReceiver();
+    private LocationRepository locationRepository;
+    private final Message message = new Message();
+    private final OutputProducer out = new OutputProducer();
+    private final InputReceiver input = new InputReceiver();
     private int choice;
 
     public Project() {
+        locationRepository = new LocationRepository();
+        locationRepository.initializeLocationsToRepo();
         startApp();
     }
 
     public void startApp() {  // First/Main screen
-        while (true) {
-            Message.printMainMenu();
-            choice = input.receiveLine().nextInt();
-            switch (choice) {
-                case 1:
-                    employeeMenu();
-                    break;
-                case 2:
-                    clientMenu();
-                    break;
-                case 0:
-                    return;
-                default:
-                    out.produceErr("Komanda neatpažinta");
-            }
+        message.printMainMenu();
+        choice = input.receiveLine().nextInt();
+        switch (choice) {
+            case 1:
+                employeeMenu();
+                break;
+            case 2:
+                clientMenu();
+                break;
+            case 3:
+                startApp();
+                break;
+            case 0:
+                HibernateUtils.shutdown();
+                return;
+            default:
+                out.produceErr("Komanda neatpažinta");
+                startApp();
         }
     }
 
     private void employeeMenu() {
-        while (true) {
-            Message.printEmployeeMenu();
-            choice = input.receiveLine().nextInt();
-            switch (choice) {
-                case 1:
-                    EmployeeController.addEmployee();
-                    break;
-                case 0:
-                    startApp();
-                    break;
-                default:
-                    out.produceErr("Komanda neatpažinta");
-            }
+        message.printEmployeeMenu();
+        choice = input.receiveLine().nextInt();
+        switch (choice) {
+            case 1:
+                EmployeeController.addEmployee();
+                employeeMenu();
+                break;
+            case 0:
+                startApp();
+                break;
+            default:
+                out.produceErr("Komanda neatpažinta");
+
         }
     }
 
     private void clientMenu() {
-        while (true) {
-            Message.printClientMenu();
-            choice = input.receiveLine().nextInt();
-        }
+        message.printClientMenu();
+        choice = input.receiveLine().nextInt();
     }
 }
