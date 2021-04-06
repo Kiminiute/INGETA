@@ -23,7 +23,7 @@ public class EmployeeController {
         out.produce("Darbuotojo pavarde: ");
         employee.setLastName(in.receiveLine().next());
         out.produce("Darbuotojo amžius YYYY-MM-DD:");
-        employee.setAge(in.receiveLine().next());
+        employee.setDateOfBirth(in.receiveDate());
         repository.save(employee);
     }
 

@@ -4,12 +4,14 @@ import hibernate_utils.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repository.tables.Client;
+import utilities.input.InputReceiver;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClientController {
+    InputReceiver inputReceiver;
     Scanner scan = new Scanner(System.in);
     private int answer = 0;
 
@@ -61,6 +63,14 @@ public class ClientController {
             clients.forEach(c -> System.out.println(c.toString()));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+    public List<Client> getClientList() {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            return session.createQuery("from Client", Client.class).list();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
         }
     }
 
@@ -115,12 +125,12 @@ public class ClientController {
         return LocalDate.of(year, month, day);
     }
     private void changeStartDate(int id) {
-        Transaction transaction = null;
+        Transaction transaction ;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);
             System.out.println("įveskite darbų pradžią: ");
-            client.setJobStart(dateInput());
+            client.setJobStart(inputReceiver.receiveDate());
             session.update(client);
             transaction.commit();
         } catch (Exception ex) {
@@ -128,12 +138,12 @@ public class ClientController {
         }
     }
     private void changeEndDate(int id) {
-        Transaction transaction = null;
+        Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);
             System.out.println("įveskite darbų pabaigą: ");
-            client.setJobEnd(dateInput());
+            client.setJobEnd(inputReceiver.receiveDate());
             session.update(client);
             transaction.commit();
         } catch (Exception ex) {
@@ -142,7 +152,7 @@ public class ClientController {
     }
 
     private void changeName(int id) {
-        Transaction transaction = null;
+        Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);
@@ -156,7 +166,7 @@ public class ClientController {
     }
 
     private void changeLocation(int id) {
-        Transaction transaction = null;
+        Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);
@@ -169,7 +179,7 @@ public class ClientController {
         }
     }
     private void changeOccupation(int id) {
-        Transaction transaction = null;
+        Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);
@@ -182,7 +192,7 @@ public class ClientController {
         }
     }
     private void changeHourlyRate(int id) {
-        Transaction transaction = null;
+        Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);

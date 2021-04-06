@@ -11,7 +11,8 @@ public class EmployeeGenerator {
     Random random = new Random();
     private String[] firstNames = {"Jonas", "Giedrius", "Saulius", "Juozas", "Mantas", "Almantas", "Emilis", "Aurimas", "Valentinas", "Benas", "Lukas", "Matas", "Nojus", "Rolandas", "Matas", "Grigalius", "Titas"};
     private String[] lastName = {"Kazlauskas", "Stankevičius", "Petrauskas", "Jankauskas", "Žukauskas", "Butkus", "Balčiūnas", "Paulauskas", "Vasiliauskas", "Baranauskas", "Urbonas", "Navickas", "Ramanauskas", "Savickas", "Rimkus"};
-
+    private String[] city = {"Kaunas","Vilnius","Klaipeda","Siauliai","Silute"};
+    private String [] occupation = {"Suvirintojas","Siuvejas","Pagalbinis"};
 
 
     public void generateEmployees(int numberOfEmployees) {
@@ -24,6 +25,8 @@ public class EmployeeGenerator {
                             1 + random.nextInt(11),
                             1 + random.nextInt(27)));
             employee.setTravelingDistance(20 + random.nextInt(80));
+            employee.setLocation(city[random.nextInt(city.length)]);
+            employee.setOccupation(occupation[random.nextInt(occupation.length)]);
             employeeController.generateEmployee(employee);
             System.out.println(employee);
         }

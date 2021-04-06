@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Entity
@@ -17,17 +19,21 @@ public class Client {
     private LocalDate jobEnd;
     private String occupation;
     private double hourlyRate;
+    @ManyToOne
+    @JoinColumn(name="employeeID")
+    private Employee employee;
 
     public Client() {
     }
 
-    public Client(String companyName, String location, LocalDate jobStart, LocalDate jobEnd, String occupation, double hourlyRate) {
+    public Client(String companyName, String location, LocalDate jobStart, LocalDate jobEnd, String occupation, double hourlyRate, Employee employee) {
         this.companyName = companyName;
         this.location = location;
         this.jobStart = jobStart;
         this.jobEnd = jobEnd;
         this.occupation = occupation;
         this.hourlyRate = hourlyRate;
+        this.employee = employee;
     }
 
     @Override
@@ -41,6 +47,14 @@ public class Client {
                 ", occupation='" + occupation + '\'' +
                 ", hourlyRate=" + hourlyRate +
                 '}';
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Integer getId() {
