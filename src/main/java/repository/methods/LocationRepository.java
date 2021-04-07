@@ -4,14 +4,25 @@ import repository.tables.Coordinate;
 import repository.tables.Location;
 import repository_utils.CRUDRepository;
 import repository_utils.Repository;
-import repository_utils.SessionProducer;
+
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LocationRepository {
     private final CRUDRepository<Location> locationRepository = new Repository<>(Location.class);
     private final CRUDRepository<Coordinate> coordinateRepository = new Repository<>(Coordinate.class);
+
+    public Location find(Integer id) { return locationRepository.find(id); }
+
+    public List<Location> findAll() { return locationRepository.findAll(); }
+
+    public void save(Location location) { locationRepository.save(location); }
+
+    public void delete(Location location) { locationRepository.delete(location); }
+
+    public void deleteById(Integer id) { locationRepository.delete(locationRepository.find(id)); }
 
     public Map<String, Coordinate> getLocations() {
         Map<String, Coordinate> cities = new HashMap<>();

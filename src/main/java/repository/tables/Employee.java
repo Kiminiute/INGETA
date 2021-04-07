@@ -71,7 +71,7 @@ public class Employee implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age='" + age + '\'' +
-                ", location=" + location +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

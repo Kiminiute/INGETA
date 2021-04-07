@@ -2,6 +2,7 @@ package repository_utils;
 
 
 import org.hibernate.Transaction;
+import repository_utils.session.SessionProducer;
 
 import java.io.Serializable;
 import java.util.List;

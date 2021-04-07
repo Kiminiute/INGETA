@@ -3,7 +3,13 @@ package controllers;
 import hibernate_utils.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import repository.methods.ClientRepository;
+import repository.methods.CoordinateRepository;
+import repository.methods.JobRepository;
 import repository.tables.Client;
+import repository.tables.Job;
+import utilities.input.InputReceiver;
+import utilities.output.OutputProducer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +17,11 @@ import java.util.Scanner;
 
 public class ClientController {
     Scanner scan = new Scanner(System.in);
+    private final InputReceiver in = new InputReceiver();
+    private final OutputProducer out = new OutputProducer();
+    private final ClientRepository clientRepository = new ClientRepository();
+    private final CoordinateRepository coordinateRepository = new CoordinateRepository();
+    private final JobRepository jobRepository = new JobRepository();
     private int answer = 0;
 
 
@@ -55,27 +66,27 @@ public class ClientController {
         }
     }
 
-    public void getClients() {
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-            List<Client> clients = session.createQuery("from Client", Client.class).list();
-            clients.forEach(c -> System.out.println(c.toString()));
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    public void getClients() {
+//        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+//            List<Client> clients = session.createQuery("from client", Client.class).list();
+//            clients.forEach(c -> System.out.println(c.toString()));
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
 
 
-    public void updateClient(int clientId) {
-        int selection =
-                getChoice("pakeisti kliento:\n" +
-                        "1) pavadinimą \n" +
-                        "2) vietovę \n" +
-                        "3) darbo pradžią \n" +
-                        "4)darbo pabaigą \n" +
-                        "5) profesiją \n" +
-                        "6) valandinį atlygį\n", 1, 6);
-        executeUpdate(selection, clientId);
-    }
+//    public void updateClient(int clientId) {
+//        int selection =
+//                getChoice("pakeisti kliento:\n" +
+//                        "1) pavadinimą \n" +
+//                        "2) vietovę \n" +
+//                        "3) darbo pradžią \n" +
+//                        "4)darbo pabaigą \n" +
+//                        "5) profesiją \n" +
+//                        "6) valandinį atlygį\n", 1, 6);
+//        executeUpdate(selection, clientId);
+//    }
 
     private int getChoice(String listOfChoice, int from, int to) {
         System.out.println(listOfChoice);
@@ -95,14 +106,14 @@ public class ClientController {
         return answer;
     }
 
-    private void executeUpdate(int updateNr, int id) {
-        if (updateNr == 1) changeName(id);
-        else if (updateNr == 2) changeLocation(id);
-        else if (updateNr == 3) changeStartDate(id);
-        else if (updateNr == 4) changeEndDate(id);
-        else if (updateNr == 5) changeOccupation(id);
-        else if (updateNr == 6) changeHourlyRate(id);
-    }
+//    private void executeUpdate(int updateNr, int id) {
+//        if (updateNr == 1) changeName(id);
+//        else if (updateNr == 2) changeLocation(id);
+//        else if (updateNr == 3) changeStartDate(id);
+//        else if (updateNr == 4) changeEndDate(id);
+//        else if (updateNr == 5) changeOccupation(id);
+//        else if (updateNr == 6) changeHourlyRate(id);
+//    }
 
 
     private LocalDate dateInput() {
@@ -114,32 +125,32 @@ public class ClientController {
         int day = scan.nextInt();
         return LocalDate.of(year, month, day);
     }
-    private void changeStartDate(int id) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            Client client = session.find(Client.class, id);
-            System.out.println("įveskite darbų pradžią: ");
-            client.setJobStart(dateInput());
-            session.update(client);
-            transaction.commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    private void changeEndDate(int id) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            Client client = session.find(Client.class, id);
-            System.out.println("įveskite darbų pabaigą: ");
-            client.setJobEnd(dateInput());
-            session.update(client);
-            transaction.commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    private void changeStartDate(int id) {
+//        Transaction transaction = null;
+//        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+//            transaction = session.beginTransaction();
+//            Client client = session.find(Client.class, id);
+//            System.out.println("įveskite darbų pradžią: ");
+//            client.setJobStart(dateInput());
+//            session.update(client);
+//            transaction.commit();
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+//    private void changeEndDate(int id) {
+//        Transaction transaction = null;
+//        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+//            transaction = session.beginTransaction();
+//            Client client = session.find(Client.class, id);
+//            System.out.println("įveskite darbų pabaigą: ");
+//            client.setJobEnd(dateInput());
+//            session.update(client);
+//            transaction.commit();
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
 
     private void changeName(int id) {
         Transaction transaction = null;
@@ -168,19 +179,19 @@ public class ClientController {
             System.out.println(ex.getMessage());
         }
     }
-    private void changeOccupation(int id) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            Client client = session.find(Client.class, id);
-            System.out.println("įveskite naują specialybę: ");
-            client.setOccupation(scan.next());
-            session.update(client);
-            transaction.commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    private void changeOccupation(int id) {
+//        Transaction transaction = null;
+//        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+//            transaction = session.beginTransaction();
+//            Client client = session.find(Client.class, id);
+//            System.out.println("įveskite naują specialybę: ");
+//            client.setOccupation(scan.next());
+//            session.update(client);
+//            transaction.commit();
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
     private void changeHourlyRate(int id) {
         Transaction transaction = null;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
@@ -193,5 +204,44 @@ public class ClientController {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public void addJob() {
+        Job job = new Job();
+        out.produce("=== DARBO PRIDEJIMAS === ");
+        out.produce("Kliento ID: ");
+        Client client = clientRepository.find(in.receiveLine().nextInt());
+        out.produce("Darbo pavadinimas: ");
+        job.setTitle(in.receiveLine().next());
+        out.produce("Darbo vieta (miestas): ");
+        String city = in.receiveLine().next();
+        if(coordinateRepository.isLocationValid(city)) {
+            job.setLocation(city);
+        } else {
+            out.produceErr("Miestas neegzistuoja, bandykite is naujo");
+            addJob();
+        }
+        out.produce("Siulomas valandinis atlygis: ");
+        job.setHourlyRate(in.receiveLine().nextDouble());
+        jobRepository.save(job);
+        client.getJob().add(job);
+//        client.setActiveRequests(client.getActiveRequests() + 1);
+        clientRepository.save(client);
+    }
+
+    public void addClient() {
+        Client client = new Client();
+        out.produce("=== KLIENTO REGISTRACIJA === ");
+        out.produce("Kliento pavadinimas: ");
+        client.setCompanyName(in.receiveLine().next());
+        out.produce("Imone isikurusi (miestas): ");
+        String city = in.receiveLine().next();
+        if(coordinateRepository.isLocationValid(city)) {
+            client.setLocation(city);
+        } else {
+            out.produceErr("Miestas neegzistuoja, bandykite is naujo");
+            addClient();
+        }
+        clientRepository.save(client);
     }
 }

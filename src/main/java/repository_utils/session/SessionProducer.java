@@ -1,4 +1,4 @@
-package repository_utils;
+package repository_utils.session;
 
 import hibernate_utils.HibernateUtils;
 import org.hibernate.Session;

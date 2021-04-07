@@ -29,15 +29,20 @@ public class Message {
     }
 
     public void printClientMenu() {
-        out.produce("1. Pridėti užsakymą.");
-        out.produce("2. Atšaukti užsakymą.");
-        out.produce("3. Redaguoti užsakymą.");
-        out.produce("4. Grįžti į pagrindinį.");
+        out.produce("1. Registruoti klientą");
+        out.produce("2. Pridėti užsakymą.");
+        out.produce("3. Atšaukti užsakymą.");
+        out.produce("4. Redaguoti užsakymą.");
+        out.produce("0. Grįžti į pagrindinį.");
     }
 
     public void printCityList() {
         for (Location city : locationRepository.findAll()) {
             out.produce(city.getName());
         }
+    }
+
+    public void printApplyToJob() {
+        out.produce("==== Priimti darbuotoją ====");
     }
 }

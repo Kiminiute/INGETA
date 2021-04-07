@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class WorkingEmployees implements Serializable {
     @Id
@@ -15,5 +16,7 @@ public class WorkingEmployees implements Serializable {
     private Integer workingEmployeeId;
     private LocalDate jobStart;
     private LocalDate jobEnd;
+    private boolean isAvailable;
+
 
 }

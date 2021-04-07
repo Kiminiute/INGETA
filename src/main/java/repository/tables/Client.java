@@ -1,48 +1,35 @@
 package repository.tables;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
     private String companyName;
     private String location;
-    private LocalDate jobStart;
-    private LocalDate jobEnd;
-    private String occupation;
-    private double hourlyRate;
+    private Integer activeRequests;
 
     public Client() {
     }
 
-    public Client(String companyName, String location, LocalDate jobStart, LocalDate jobEnd, String occupation, double hourlyRate) {
+    public Client(String companyName, String location) {
         this.companyName = companyName;
         this.location = location;
-        this.jobStart = jobStart;
-        this.jobEnd = jobEnd;
-        this.occupation = occupation;
-        this.hourlyRate = hourlyRate;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", location='" + location + '\'' +
-                ", jobStart=" + jobStart +
-                ", jobEnd=" + jobEnd +
-                ", occupation='" + occupation + '\'' +
-                ", hourlyRate=" + hourlyRate +
-                '}';
-    }
+    @ManyToMany(mappedBy = "client")
+    private List<Job> job = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -68,36 +55,20 @@ public class Client implements Serializable {
         this.location = location;
     }
 
-    public LocalDate getJobStart() {
-        return jobStart;
+    public Integer getActiveRequests() {
+        return activeRequests;
     }
 
-    public void setJobStart(LocalDate jobStart) {
-        this.jobStart = jobStart;
+    public void setActiveRequests(Integer activeRequests) {
+        this.activeRequests = activeRequests;
     }
 
-    public LocalDate getJobEnd() {
-        return jobEnd;
+    public List<Job> getJob() {
+        return job;
     }
 
-    public void setJobEnd(LocalDate jobEnd) {
-        this.jobEnd = jobEnd;
-    }
-
-    public String getOccupation() {
-        return occupation;
-    }
-
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
-    }
-
-    public double getHourlyRate() {
-        return hourlyRate;
-    }
-
-    public void setHourlyRate(double hourlyRate) {
-        this.hourlyRate = hourlyRate;
+    public void setJob(List<Job> job) {
+        this.job = job;
     }
 }
 

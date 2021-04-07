@@ -1,6 +1,7 @@
 package controllers;
 
 import repository.methods.CoordinateRepository;
+import repository.methods.EmployeeRepository;
 import repository.tables.Employee;
 import utilities.input.InputReceiver;
 import utilities.messages.Message;
@@ -9,13 +10,13 @@ import repository_utils.Repository;
 
 
 public class EmployeeController {
-    private static final Repository<Employee> repository = new Repository<>(Employee.class);
-    private static final Message messages = new Message();
-    private static final CoordinateRepository cr = new CoordinateRepository();
-    private static final OutputProducer out = new OutputProducer();
-    private static final InputReceiver in = new InputReceiver();
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final Message messages = new Message();
+    private final CoordinateRepository coordinateRepository = new CoordinateRepository();
+    private final OutputProducer out = new OutputProducer();
+    private final InputReceiver in = new InputReceiver();
 
-    public static void addEmployee() {
+    public void addEmployee() {
         Employee employee = new Employee();
         out.produce("---REGISTRACIJA---");
         out.produce("Darbuotojo vardas: ");
@@ -25,18 +26,27 @@ public class EmployeeController {
         out.produce("Darbuotojo amžius YYYY-MM-DD:");
         employee.setAge(in.receiveLine().next());
         addCity(employee);
-        repository.save(employee);
+        employeeRepository.save(employee);
     }
 
-    public static void addCity(Employee employee) {
-        out.produce("City you live in: ");
+    public void addCity(Employee employee) {
+        out.produce("Gyvenviete: ");
         String city = in.receiveLine().next();
-        if(cr.isLocationValid(city)) {
+        if(coordinateRepository.isLocationValid(city)) {
             employee.setCity(city);
         } else {
-            out.produce("Valid cities: ");
+            out.produce("Validus miestai: ");
             messages.printCityList();
             addCity(employee);
         }
+    }
+
+    public void applyJob() {
+        out.produce("--- IDARBINIMAS ---");
+        employeeRepository.displayEmployees();
+        out.produce("Darbuotojo ID: ");
+        Employee employee = employeeRepository.find(in.receiveLine().nextInt());
+
+
     }
 }
