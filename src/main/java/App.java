@@ -1,13 +1,11 @@
-import controllers.AvailableEmployees;
 import controllers.ClientController;
 import controllers.EmployeeController;
-import controllers.WorkingEmployeesController;
 import repository.tables.Client;
-import repository.tables.Employee;
+import utilities.dateOperations.DateValidator;
 import utilities.generator.EmployeeGenerator;
+import utilities.input.InputReceiver;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -31,18 +29,24 @@ public class App {
 
         clientController.addClient(client);
         clientController.addClient(client1);
+Project project = new Project();
 
-        System.out.println("--------------------------------------------------------------------------------------");
-        AvailableEmployees availableEmployees = new AvailableEmployees();
-        List<Employee>employeeList = availableEmployees.getAvailableEmployees(client);
-        List<Employee>employeeList1 = availableEmployees.getAvailableEmployees(client1);
-        for(Employee e : employeeList){
-            System.out.println("***************" + e.toString() + "***************");
-        }
-        System.out.println("--------------------------------------------------------------------------------------");
-        for(Employee e : employeeList1){
-            System.out.println("***************" + e.toString() + "***************");
-        }
+//        InputReceiver inputReceiver = new InputReceiver();
+//       LocalDate date = inputReceiver.receiveDate();
+//        System.out.println(date);
+
+
+//        System.out.println("--------------------------------------------------------------------------------------");
+//        AvailableEmployees availableEmployees = new AvailableEmployees();
+//        List<Employee>employeeList = availableEmployees.getAvailableEmployees(client);
+//        List<Employee>employeeList1 = availableEmployees.getAvailableEmployees(client1);
+//        for(Employee e : employeeList){
+//            System.out.println("***************" + e.toString() + "***************");
+//        }
+//        System.out.println("--------------------------------------------------------------------------------------");
+//        for(Employee e : employeeList1){
+//            System.out.println("***************" + e.toString() + "***************");
+//        }
 
 
     }

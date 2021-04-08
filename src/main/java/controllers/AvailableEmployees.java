@@ -16,8 +16,8 @@ public class AvailableEmployees {
     public List<Employee> getAvailableEmployees(Client client) {
         List<Employee> availableEmployees = employeeController.findAllEmployees()
                 .stream()
-                .filter(e -> e.getOccupation().equals(client.getOccupation()))
-                .filter(e -> e.getLocation().equals(client.getLocation()))
+                .filter(e -> e.getOccupation().equalsIgnoreCase(client.getOccupation()))
+                .filter(e -> e.getLocation().equalsIgnoreCase(client.getLocation()))
                 .collect(Collectors.toList());
         List<Employee> workingEmployees = workingEmployeesController
                 .getWorkingEmployees(client.getJobStart(), client.getJobEnd());

@@ -4,17 +4,55 @@ import hibernate_utils.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repository.tables.Client;
+import repository.tables.Employee;
+import repository_utils.Repository;
 import utilities.input.InputReceiver;
+import utilities.output.OutputProducer;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class ClientController {
+public class ClientController{
+
     InputReceiver inputReceiver;
+    OutputProducer out = new OutputProducer();
+    InputReceiver in = new InputReceiver();
     Scanner scan = new Scanner(System.in);
+    Repository<Client> repository = new Repository<>(Client.class);
     private int answer = 0;
 
+    public void saveClient() {
+        Client client = new Client();
+        Employee employee = new Employee();
+        out.produce("---REGISTRACIJA---");
+        out.produce("Cliento pavadinimas: ");
+        client.setCompanyName(in.receiveLine().next());
+        out.produce("Miestas: ");
+        client.setLocation(in.receiveLine().next());
+        out.produce("Darbų pradžia ");
+        client.setJobStart(in.receiveDate());
+        out.produce("Darbų pabaiga: ");
+        client.setJobEnd(in.receiveDate());
+        out.produce("Specialybė: ");
+        client.setOccupation(in.receiveLine().next());
+        out.produce("Valandinis atlygis: ");
+        client.setHourlyRate(in.receiveDouble());
+
+        AvailableEmployees ae = new AvailableEmployees();
+
+        if (!ae.getAvailableEmployees(client).isEmpty()) {
+            out.produce("pasirinkite tinkamo darbuotojo ID: ");
+            in.printList(ae.getAvailableEmployees(client));
+            employee = EmployeeController.findEmployee(in.receiveInteger());
+            client.setEmployee(employee);
+            out.produce( employee.toString() + "užregistruotas");
+        } else out.produce("Pagal pateiktus duomenis darbuotojų nerasta");
+
+        repository.save(client);
+
+
+    }
 
     public void addClient(Client client) {
         Transaction transaction = null;
@@ -65,11 +103,12 @@ public class ClientController {
             System.out.println(ex.getMessage());
         }
     }
+
     public List<Client> getClientList() {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             return session.createQuery("from Client", Client.class).list();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
             return null;
         }
     }
@@ -124,8 +163,9 @@ public class ClientController {
         int day = scan.nextInt();
         return LocalDate.of(year, month, day);
     }
+
     private void changeStartDate(int id) {
-        Transaction transaction ;
+        Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Client client = session.find(Client.class, id);
@@ -137,6 +177,7 @@ public class ClientController {
             System.out.println(ex.getMessage());
         }
     }
+
     private void changeEndDate(int id) {
         Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
@@ -178,6 +219,7 @@ public class ClientController {
             System.out.println(ex.getMessage());
         }
     }
+
     private void changeOccupation(int id) {
         Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
@@ -191,6 +233,7 @@ public class ClientController {
             System.out.println(ex.getMessage());
         }
     }
+
     private void changeHourlyRate(int id) {
         Transaction transaction;
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {

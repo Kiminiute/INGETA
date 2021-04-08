@@ -28,4 +28,11 @@ public class Message {
         out.produce("3. Redaguoti užsakymą.");
         out.produce("4. Grįžti į pagrindinį.");
     }
+    public static void printRemoveClientMenu() {
+        out.produce("1. Atšaukti užsąkymą naudojant užsąkymo ID");
+        out.produce("2. Pateikti užsąkymų sąrašą");
+        out.produce("3. Redaguoti užsakymą.");
+        out.produce("4. Grįžti į pagrindinį.");
+    }
+
 }

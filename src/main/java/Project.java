@@ -1,6 +1,5 @@
+import controllers.ClientController;
 import controllers.EmployeeController;
-import repository.tables.Employee;
-import repository_utils.Repository;
 import utilities.input.InputReceiver;
 import utilities.messages.Message;
 import utilities.output.OutputProducer;
@@ -9,6 +8,7 @@ import utilities.output.OutputProducer;
 public class Project {
     OutputProducer out = new OutputProducer();
     InputReceiver input = new InputReceiver();
+    ClientController clientController = new ClientController();
     private int choice;
 
     public Project() {
@@ -55,6 +55,18 @@ public class Project {
         while (true) {
             Message.printClientMenu();
             choice = input.receiveLine().nextInt();
+            switch (choice) {
+                case 1:
+                    clientController.saveClient();
+                    break;
+                case 2:
+                    clientController.removeClient(1);
+                    break;
+                case 0:
+                    return;
+                default:
+                    out.produceErr("Komanda neatpažinta");
+            }
         }
     }
 }
