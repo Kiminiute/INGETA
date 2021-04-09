@@ -20,15 +20,6 @@ public class CoordinateRepository {
 
     public void deleteById(Integer id) { repository.delete(repository.find(id)); }
 
-    public boolean isLocationValid(final String location) {
-        for (Coordinate coord : repository.findAll()) {
-            if (coord.getLocation().getName().equalsIgnoreCase(location)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Double calculateDistance(final Coordinate c1, final Coordinate c2) {
         final int R = 6371;
 

@@ -13,12 +13,14 @@ import java.io.Serializable;
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name="increment", strategy = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Integer employeeId;
     private String firstName;
     private String lastName;
     private String age;
     private String city;
+    private Double distanceToWork;
+    private boolean isAvailable = true;
 
     @OneToOne
     private Location location;
@@ -62,6 +64,30 @@ public class Employee implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Double getDistanceToWork() {
+        return distanceToWork;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public void setDistanceToWork(Double distanceToWork) {
+        this.distanceToWork = distanceToWork;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     @Override

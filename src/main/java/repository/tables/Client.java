@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "company")
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,7 @@ public class Client implements Serializable {
     private Integer id;
     private String companyName;
     private String location;
-    private Integer activeRequests;
+    private Integer activeRequests = 0;
 
     public Client() {
     }
@@ -28,8 +29,19 @@ public class Client implements Serializable {
         this.location = location;
     }
 
-    @ManyToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client")
     private List<Job> job = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client")
+    private List<WorkingEmployee> workingEmployees = new ArrayList<>();
+
+    public List<WorkingEmployee> getWorkingEmployees() {
+        return workingEmployees;
+    }
+
+    public void setWorkingEmployees(List<WorkingEmployee> workingEmployees) {
+        this.workingEmployees = workingEmployees;
+    }
 
     public Integer getId() {
         return id;
@@ -69,6 +81,16 @@ public class Client implements Serializable {
 
     public void setJob(List<Job> job) {
         this.job = job;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", location='" + location + '\'' +
+                ", activeRequests=" + activeRequests +
+                '}';
     }
 }
 

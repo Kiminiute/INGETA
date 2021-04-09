@@ -40,6 +40,13 @@ public class Repository<T> implements CRUDRepository<T>, Serializable {
 
     @Override
     public void delete(T object) {
-        sp.produceSession().remove(object);
+        Transaction t = sp.produceSession().getTransaction();
+        if (!t.isActive()) {
+            t.begin();
+            sp.produceSession().remove(object);
+            if (t.isActive()) {
+                t.commit();
+            }
+        }
     }
 }

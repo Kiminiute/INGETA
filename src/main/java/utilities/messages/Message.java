@@ -1,14 +1,20 @@
 package utilities.messages;
 
-import repository.methods.LocationRepository;
+import repository.methods.*;
 import repository.tables.Coordinate;
+import repository.tables.Employee;
+import repository.tables.Job;
 import repository.tables.Location;
-import repository_utils.CRUDRepository;
-import repository_utils.Repository;
 import utilities.output.OutputProducer;
 
+import java.util.stream.Collectors;
+
 public class Message {
-    private final CRUDRepository<Location> locationRepository = new Repository<>(Location.class);
+    private final LocationRepository locationRepository = new LocationRepository();
+    private final CoordinateRepository coordinateRepository = new CoordinateRepository();
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final ClientRepository clientRepository = new ClientRepository();
+    private final JobRepository jobRepository = new JobRepository();
     private final OutputProducer out = new OutputProducer();
 
     public void printMainMenu() {
@@ -32,7 +38,8 @@ public class Message {
         out.produce("1. Registruoti klientą");
         out.produce("2. Pridėti užsakymą.");
         out.produce("3. Atšaukti užsakymą.");
-        out.produce("4. Redaguoti užsakymą.");
+        out.produce("4. Klientų sąrašas");
+        out.produce("5. Darbų sąrašas");
         out.produce("0. Grįžti į pagrindinį.");
     }
 
@@ -42,7 +49,39 @@ public class Message {
         }
     }
 
-    public void printApplyToJob() {
-        out.produce("==== Priimti darbuotoją ====");
+    public void printFilteredCities(Employee employee) {
+        locationRepository.filterCities(employee).forEach
+                (l -> System.out.println(coordinateRepository.find(l.getCoordinateId()).getLocation().getName()));
+    }
+
+    public void printFilteredJobs(Employee employee) {
+        for(Coordinate coordinate : locationRepository.filterCities(employee)) {
+            for(Job job : jobRepository.findAll()) {
+                if(job.getLocation().contains(coordinate.getLocation().getName())) {
+                    System.out.println(job);
+                }
+            }
+        }
+    }
+
+    public void printJobList() {
+        out.produce("=====================================");
+        out.produce("ID Title Hourly_rate Location Company");
+        jobRepository.findAll().forEach(job -> out.produce(job.getJobId() + ".   " + job.getTitle() + "    " + job.getHourlyRate()
+                + "     " + job.getLocation() + "   " + job.getClient().getCompanyName()));
+        out.produce("=====================================");
+    }
+
+    public void printClientList() {
+        out.produce("================================================");
+        out.produce("ID Company_name Company_premises Active_requests");
+        clientRepository.findAll().forEach(c -> out.produce(c.getId() + ".   " + c.getCompanyName()
+                + "     " + c.getLocation() + "     " + c.getActiveRequests()));
+        out.produce("================================================");
+    }
+
+    public void printAvailableEmployees() {
+        employeeRepository.findAll().stream().filter(Employee::isAvailable)
+                .collect(Collectors.toList()).forEach(System.out::println);
     }
 }

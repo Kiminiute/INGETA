@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +17,19 @@ public class Job implements Serializable {
     private String title;
     private String location;
     private Double hourlyRate;
+    private LocalDate jobUntil;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Client> client = new ArrayList<>();
+    @ManyToOne
+    private Client client;
 
-    public List<Client> getClient() {
+    @OneToMany(mappedBy = "job")
+    private List<WorkingEmployee> workingEmployees = new ArrayList<>();
+
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(List<Client> client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
@@ -60,12 +65,22 @@ public class Job implements Serializable {
         this.hourlyRate = hourlyRate;
     }
 
+    public LocalDate getJobUntil() {
+        return jobUntil;
+    }
+
+    public void setJobUntil(LocalDate jobUntil) {
+        this.jobUntil = jobUntil;
+    }
+
     @Override
     public String toString() {
         return "Job{" +
                 "jobId=" + jobId +
                 ", title='" + title + '\'' +
                 ", location='" + location + '\'' +
+                ", hourlyRate=" + hourlyRate +
+                ", jobUntil=" + jobUntil +
                 '}';
     }
 }

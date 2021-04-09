@@ -7,6 +7,7 @@ import repository_utils.Repository;
 import java.util.List;
 
 public class JobRepository {
+
     private final CRUDRepository<Job> jobRepository = new Repository<>(Job.class);
 
     public Job find(Integer id) { return jobRepository.find(id); }

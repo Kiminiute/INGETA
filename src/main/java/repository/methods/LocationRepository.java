@@ -1,6 +1,7 @@
 package repository.methods;
 
 import repository.tables.Coordinate;
+import repository.tables.Employee;
 import repository.tables.Location;
 import repository_utils.CRUDRepository;
 import repository_utils.Repository;
@@ -9,10 +10,11 @@ import repository_utils.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LocationRepository {
     private final CRUDRepository<Location> locationRepository = new Repository<>(Location.class);
-    private final CRUDRepository<Coordinate> coordinateRepository = new Repository<>(Coordinate.class);
+    private final CoordinateRepository coordinateRepository = new CoordinateRepository();
 
     public Location find(Integer id) { return locationRepository.find(id); }
 
@@ -83,4 +85,27 @@ public class LocationRepository {
         }
     }
 
+    public boolean isLocationValid(final String location) {
+        for (Coordinate coord : coordinateRepository.findAll()) {
+            if (coord.getLocation().getName().equalsIgnoreCase(location)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Coordinate matchEmployeeLocToLocDB(Employee employee) {
+         for(Coordinate coord : coordinateRepository.findAll()) {
+             if(coord.getLocation().getName().equalsIgnoreCase(employee.getCity())) {
+                 return coord;
+             }
+         }
+         return null;
+    }
+
+    public List<Coordinate> filterCities(Employee employee) {
+        Coordinate coord2 = matchEmployeeLocToLocDB(employee);
+        return coordinateRepository.findAll().stream().filter(c -> coordinateRepository.calculateDistance
+                (c, coord2) <= employee.getDistanceToWork()).collect(Collectors.toList());
+    }
 }

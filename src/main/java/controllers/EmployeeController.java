@@ -1,20 +1,24 @@
 package controllers;
 
-import repository.methods.CoordinateRepository;
-import repository.methods.EmployeeRepository;
+import repository.methods.*;
 import repository.tables.Employee;
+import repository.tables.Job;
+import repository.tables.WorkingEmployee;
 import utilities.input.InputReceiver;
 import utilities.messages.Message;
 import utilities.output.OutputProducer;
-import repository_utils.Repository;
 
 
 public class EmployeeController {
     private final EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final LocationRepository locationRepository = new LocationRepository();
+    private final JobRepository jobRepository = new JobRepository();
     private final Message messages = new Message();
     private final CoordinateRepository coordinateRepository = new CoordinateRepository();
     private final OutputProducer out = new OutputProducer();
     private final InputReceiver in = new InputReceiver();
+    private final WorkingEmployeeRepository wkr = new WorkingEmployeeRepository();
+    private String choice = "";
 
     public void addEmployee() {
         Employee employee = new Employee();
@@ -23,30 +27,45 @@ public class EmployeeController {
         employee.setFirstName(in.receiveLine().next());
         out.produce("Darbuotojo pavarde: ");
         employee.setLastName(in.receiveLine().next());
-        out.produce("Darbuotojo amžius YYYY-MM-DD:");
+        out.produce("Darbuotojo amžius:");
         employee.setAge(in.receiveLine().next());
         addCity(employee);
+        out.produce("Kokiu km spinduliu ieskomas darbas: ");
+        employee.setDistanceToWork(in.receiveLine().nextDouble());
         employeeRepository.save(employee);
     }
 
     public void addCity(Employee employee) {
-        out.produce("Gyvenviete: ");
+        out.produce("Gyvenvietė: ");
         String city = in.receiveLine().next();
-        if(coordinateRepository.isLocationValid(city)) {
+        if (locationRepository.isLocationValid(city)) {
             employee.setCity(city);
         } else {
-            out.produce("Validus miestai: ");
+            out.produce("Validūs miestai: ");
             messages.printCityList();
             addCity(employee);
         }
     }
 
     public void applyJob() {
-        out.produce("--- IDARBINIMAS ---");
+        WorkingEmployee we = new WorkingEmployee();
+        out.produce("--- ĮDARBINIMAS ---");
         employeeRepository.displayEmployees();
         out.produce("Darbuotojo ID: ");
         Employee employee = employeeRepository.find(in.receiveLine().nextInt());
-
-
+        out.produce("Rekomenduojami darbai pagal atstumą: ");
+        messages.printFilteredJobs(employee);
+        out.produce("Rodyti visus darbus nepaisant atstumo? T/N");
+        choice = in.receiveLine().next();
+        if(choice.equalsIgnoreCase("T")) {
+            messages.printJobList();
+        }
+        out.produce("Darbo ID: ");
+        Job job = jobRepository.find(in.receiveLine().nextInt());
+        we.setJob(job);
+        we.setClient(job.getClient());
+        employee.setAvailable(false);
+        wkr.save(we);
+        out.produce("Sekmingai įdarbinta!");
     }
 }

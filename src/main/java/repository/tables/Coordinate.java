@@ -69,4 +69,14 @@ public class Coordinate implements Serializable {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public String toString() {
+        return "Coordinate{" +
+                "coordinateId=" + coordinateId +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", location=" + location +
+                '}';
+    }
 }
