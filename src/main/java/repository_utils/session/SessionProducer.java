@@ -9,7 +9,7 @@ public class SessionProducer {
     private final Session session = sessionFactory.openSession();
 
     public Session produceSession() {
-        return session;
+        return session.getSessionFactory().openSession();
     }
 
 }

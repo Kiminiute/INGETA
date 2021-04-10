@@ -33,6 +33,7 @@ public class EmployeeController {
         out.produce("Kokiu km spinduliu ieskomas darbas: ");
         employee.setDistanceToWork(in.receiveLine().nextDouble());
         employeeRepository.save(employee);
+        out.produce("Darbuotojas užregistruotas sekmingai!");
     }
 
     public void addCity(Employee employee) {
@@ -50,7 +51,6 @@ public class EmployeeController {
     public void applyJob() {
         WorkingEmployee we = new WorkingEmployee();
         out.produce("--- ĮDARBINIMAS ---");
-        employeeRepository.displayEmployees();
         out.produce("Darbuotojo ID: ");
         Employee employee = employeeRepository.find(in.receiveLine().nextInt());
         out.produce("Rekomenduojami darbai pagal atstumą: ");
@@ -64,7 +64,7 @@ public class EmployeeController {
         Job job = jobRepository.find(in.receiveLine().nextInt());
         we.setJob(job);
         we.setClient(job.getClient());
-        employee.setAvailable(false);
+        we.setEmployee(employee);
         wkr.save(we);
         out.produce("Sekmingai įdarbinta!");
     }

@@ -1,6 +1,7 @@
 package repository_utils;
 
 
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repository_utils.session.SessionProducer;
 
@@ -28,11 +29,12 @@ public class Repository<T> implements CRUDRepository<T>, Serializable {
 
     @Override
     public void save(T object) {
-        Transaction t = sp.produceSession().getTransaction();
+        Session session = sp.produceSession();
+        Transaction t = session.getTransaction();
         if (!t.isActive()) {
             t.begin();
         }
-        sp.produceSession().persist(object);
+        session.persist(object);
         if (t.isActive()) {
             t.commit();
         }

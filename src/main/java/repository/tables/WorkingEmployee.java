@@ -1,6 +1,6 @@
 package repository.tables;
 
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,9 +8,8 @@ import java.io.Serializable;
 @Entity
 public class WorkingEmployee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "increment", strategy = "increment")
-    private Integer workingEmployeeId;
+    @Column(name = "employee_id")
+    private Integer id;
 
     @ManyToOne
     private Client client;
@@ -18,6 +17,10 @@ public class WorkingEmployee implements Serializable {
     @ManyToOne
     private Job job;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     public Client getClient() {
         return client;
@@ -28,11 +31,11 @@ public class WorkingEmployee implements Serializable {
     }
 
     public Integer getWorkingEmployeeId() {
-        return workingEmployeeId;
+        return id;
     }
 
-    public void setWorkingEmployeeId(Integer workingEmployeeId) {
-        this.workingEmployeeId = workingEmployeeId;
+    public void setWorkingEmployeeId(Integer employeeId) {
+        this.id = employeeId;
     }
 
     public Job getJob() {
@@ -43,10 +46,18 @@ public class WorkingEmployee implements Serializable {
         this.job = job;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     @Override
     public String toString() {
         return "WorkingEmployee{" +
-                "workingEmployeeId=" + workingEmployeeId +
+                "workingEmployeeId=" + id +
                 ", client=" + client +
                 ", job=" + job +
                 '}';

@@ -2,11 +2,7 @@ package repository.tables;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -14,24 +10,26 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "increment", strategy = "increment")
-    private Integer employeeId;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String age;
     private String city;
     private Double distanceToWork;
-    private boolean isAvailable = true;
 
     @OneToOne
     private Location location;
 
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private WorkingEmployee workingEmployee;
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setId(Integer employeeId) {
+        this.id = employeeId;
     }
 
     public String getFirstName() {
@@ -71,11 +69,7 @@ public class Employee implements Serializable {
     }
 
     public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+        return workingEmployee == null;
     }
 
     public void setDistanceToWork(Double distanceToWork) {
@@ -90,14 +84,25 @@ public class Employee implements Serializable {
         this.location = location;
     }
 
+    public WorkingEmployee getWorkingEmployee() {
+        return workingEmployee;
+    }
+
+    public void setWorkingEmployee(WorkingEmployee workingEmployee) {
+        this.workingEmployee = workingEmployee;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
+                "employeeId=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age='" + age + '\'' +
                 ", city='" + city + '\'' +
+                ", distanceToWork=" + distanceToWork +
+                ", location=" + location +
+                ", workingEmployee=" + workingEmployee +
                 '}';
     }
 }

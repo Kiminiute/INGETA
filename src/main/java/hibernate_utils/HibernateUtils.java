@@ -24,7 +24,7 @@ public class HibernateUtils {
                 settings.put(Environment.PASS, DatabaseUtils.DATABASE_PASSWORD);
                 settings.put(Environment.HBM2DDL_AUTO, "create-drop");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL55Dialect");
-                settings.put(Environment.SHOW_SQL, "false");
+                settings.put(Environment.SHOW_SQL, "true");
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Employee.class)
                         .addAnnotatedClass(Client.class)

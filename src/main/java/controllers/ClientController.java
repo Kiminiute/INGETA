@@ -44,9 +44,9 @@ public class ClientController {
         }
         job.setClient(client);
         jobRepository.save(job);
-        client.getJob().add(job);
-        client.setActiveRequests(client.getActiveRequests() + 1);
-        clientRepository.save(client);
+//        client.getJob().add(job);
+//        client.setActiveRequests(client.getActiveRequests() + 1);
+//        clientRepository.save(client);
         out.produce("Darbas sekmingai sukurtas!");
     }
 

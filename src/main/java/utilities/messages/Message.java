@@ -7,6 +7,8 @@ import repository.tables.Job;
 import repository.tables.Location;
 import utilities.output.OutputProducer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Message {
@@ -14,6 +16,7 @@ public class Message {
     private final CoordinateRepository coordinateRepository = new CoordinateRepository();
     private final EmployeeRepository employeeRepository = new EmployeeRepository();
     private final ClientRepository clientRepository = new ClientRepository();
+    private final WorkingEmployeeRepository workingEmployeeRepository = new WorkingEmployeeRepository();
     private final JobRepository jobRepository = new JobRepository();
     private final OutputProducer out = new OutputProducer();
 
@@ -30,6 +33,7 @@ public class Message {
         out.produce("==== Darbuotojų meniu ====");
         out.produce("1. Registruoti darbuotoją.");
         out.produce("2. Priimti darbuotoją.");
+        out.produce("3. Rodyti neužimtus darbuotojus.");
         out.produce("0. Grįžti į pagrindinį.");
         out.produce("==========================");
     }
@@ -55,9 +59,9 @@ public class Message {
     }
 
     public void printFilteredJobs(Employee employee) {
-        for(Coordinate coordinate : locationRepository.filterCities(employee)) {
-            for(Job job : jobRepository.findAll()) {
-                if(job.getLocation().contains(coordinate.getLocation().getName())) {
+        for (Coordinate coordinate : locationRepository.filterCities(employee)) {
+            for (Job job : jobRepository.findAll()) {
+                if (job.getLocation().contains(coordinate.getLocation().getName())) {
                     System.out.println(job);
                 }
             }

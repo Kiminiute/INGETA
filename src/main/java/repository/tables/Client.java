@@ -4,11 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "company")
@@ -29,10 +26,10 @@ public class Client implements Serializable {
         this.location = location;
     }
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Job> job = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<WorkingEmployee> workingEmployees = new ArrayList<>();
 
     public List<WorkingEmployee> getWorkingEmployees() {
